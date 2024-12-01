@@ -48,16 +48,16 @@ func TestSplitLists(t *testing.T) {
 			t.Errorf("returned error: %s", err)
 			continue
 		}
-		if !checkListsEqual(got.left, test.expect.left) {
+		if !areListsEqual(got.left, test.expect.left) {
 			t.Errorf("left list: expected %v, got %v", test.expect.left, got.left)
 		}
-		if !checkListsEqual(got.right, test.expect.right) {
+		if !areListsEqual(got.right, test.expect.right) {
 			t.Errorf("right list: expected %v, got %v", test.expect.right, got.right)
 		}
 	}
 }
 
-func checkListsEqual(l1, l2 []int) bool {
+func areListsEqual(l1, l2 []int) bool {
 	if len(l1) != len(l2) {
 		return false
 	}
@@ -67,4 +67,25 @@ func checkListsEqual(l1, l2 []int) bool {
 		}
 	}
 	return true
+}
+
+func TestSimilarityScore(t *testing.T) {
+	tests := []struct {
+		Input
+		expect int
+	}{
+		{Input{[]int{1}, []int{1}}, 1},
+		{Input{[]int{3, 4, 2, 1, 3, 3}, []int{4, 3, 5, 3, 9, 3}}, 31},
+	}
+
+	for _, input := range tests {
+		score, err := SimilarityScore(input.left, input.right)
+		if err != nil {
+			t.Errorf("returned error: %s", err)
+			continue
+		}
+		if score != input.expect {
+			t.Errorf("expected %d, got %d", input.expect, score)
+		}
+	}
 }

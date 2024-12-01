@@ -30,7 +30,13 @@ func main() {
 		panic(fmt.Sprintf("calculating total difference: %s\n", err))
 	}
 
-	fmt.Println(totalDifference)
+	fmt.Printf("Total difference: %d\n", totalDifference)
+
+	score, err := SimilarityScore(input.left, input.right)
+	if err != nil {
+		panic(fmt.Sprintf("calculating similarity score: %s\n", err))
+	}
+	fmt.Printf("Similarity score: %d\n", score)
 }
 
 func SplitLists(s string) (Input, error) {
@@ -88,4 +94,27 @@ func ListDifference(left, right []int) (int, error) {
 	}
 
 	return total, nil
+}
+
+func SimilarityScore(left, right []int) (int, error) {
+	frequenciesLeft := frequencies(left)
+	frequenciesRight := frequencies(right)
+
+	score := 0
+
+	for entry := range frequenciesLeft {
+		increment := entry * frequenciesLeft[entry] * frequenciesRight[entry]
+		score += increment
+	}
+
+	return score, nil
+}
+
+func frequencies(l []int) map[int]int {
+	m := make(map[int]int)
+	for _, entry := range l {
+		f := m[entry]
+		m[entry] = f + 1
+	}
+	return m
 }
