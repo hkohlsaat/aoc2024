@@ -9,3 +9,5 @@ YouTube:
 | 2   | 4          | https://youtu.be/CeqdgKTUPsM |
 | 3   | 5          | https://youtu.be/cjmhom2Jb3s |
 | 3   | 6          | https://youtu.be/S2uhLJQtydc |
+| 4   | 7          | https://youtu.be/0o_78KTnmL0 |
+| 4   | 8          | https://youtu.be/zwxo0tBB9RU |
