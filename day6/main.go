@@ -51,7 +51,6 @@ func main() {
 	if plan.m[original.i][original.j] == Fake {
 		fakeObstacles -= 1
 	}
-	fmt.Printf("%s\n", plan)
 
 	fmt.Printf("Number of fakes: %d\n", fakeObstacles)
 }
@@ -218,11 +217,12 @@ func (p *Plan) SearchCirlces() (bool, error) {
 	return p.SimpleAdvance(false)
 }
 
-func (p *Plan) GoesInCircle(i, j int, d Direction) (leaves bool, err error) {
+func (p *Plan) GoesInCircle(i, j int, d Direction) (circle bool, err error) {
 	started := NodeId(i, j, d, len(p.m))
 	visited := make([]bool, 4*len(p.m)*len(p.m[0]))
 	visited[started] = true
 	for {
+		var leaves bool
 		leaves, i, j, d, err = p.Plan(i, j, d)
 		if err != nil {
 			return false, err
