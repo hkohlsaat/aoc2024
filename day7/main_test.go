@@ -28,7 +28,7 @@ func TestFindPossibleCalibrations(t *testing.T) {
 		sheet  *CalibrationSheet
 		expect []int
 	}{
-		{SheetFromString(input), []int{0, 1, 8}},
+		{SheetFromString(input), []int{0, 1, 3, 4, 6, 8}},
 	}
 
 testLoop:
@@ -52,9 +52,9 @@ func TestFindOperators(t *testing.T) {
 		cali *Calibration
 		ops  []Operator
 	}{
-		{CalibrationFromString("3: 1 2"), []Operator{'+'}},
-		{CalibrationFromString("6: 2 3"), []Operator{'*'}},
-		{&Calibration{((3*4+5)*12+23)*3 + 3, []int{3, 4, 5, 12, 23, 3, 3}}, []Operator{'*', '+', '*', '+', '*', '+'}},
+		{CalibrationFromString("3: 1 2"), []Operator{"+"}},
+		{CalibrationFromString("6: 2 3"), []Operator{"*"}},
+		{&Calibration{((3*4+5)*12+23)*3 + 3, []int{3, 4, 5, 12, 23, 3, 3}}, []Operator{"*", "+", "*", "+", "*", "+"}},
 	}
 
 testLoop:

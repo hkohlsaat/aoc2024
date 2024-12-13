@@ -89,11 +89,12 @@ func (cali *Calibration) String() string {
 	return b.String()
 }
 
-type Operator rune
+type Operator string
 
 const (
-	Add = '+'
-	Mul = '*'
+	Add         Operator = "+"
+	Multiply    Operator = "*"
+	Concatenate Operator = "||"
 )
 
 func FindPossibleCalculations(sheet *CalibrationSheet) []int {
@@ -107,7 +108,6 @@ func FindPossibleCalculations(sheet *CalibrationSheet) []int {
 }
 
 func FindOperators(cali *Calibration) []Operator {
-	// return RecursiveOperators(cali.Result, cali.Operands...)
 	for operators := range IterOp(len(cali.Operands) - 1) {
 		if Check(cali.Result, cali.Operands, operators) {
 			return operators
@@ -126,8 +126,13 @@ func Check(target int, operands []int, operators []Operator) bool {
 		switch operator {
 		case Add:
 			result = result + operand
-		case Mul:
+		case Multiply:
 			result = result * operand
+		case Concatenate:
+			for _, n := range strconv.Itoa(operand) {
+				a, _ := strconv.Atoi(string(n))
+				result = result*10 + a
+			}
 		default:
 			panic("unknown operator")
 		}
@@ -135,68 +140,43 @@ func Check(target int, operands []int, operators []Operator) bool {
 	return result == target
 }
 
-func RecursiveOperators(target int, operands ...int) []Operator {
-	if len(operands) == 1 {
-		if target == operands[0] {
-			return []Operator{}
-		} else {
-			return nil
-		}
-	}
-
-	l, r := operands[0], operands[1]
-	for _, operator := range []Operator{Add, Mul} {
-		intermediateResult := 0
-		switch operator {
-		case Add:
-			intermediateResult = l + r
-		case Mul:
-			intermediateResult = l * r
-		default:
-			panic("unknwon case")
-		}
-		if intermediateResult > target {
-			return nil
-		}
-		newOperands := append([]int{intermediateResult}, operands[2:]...)
-		ops := RecursiveOperators(target, newOperands...)
-		if ops != nil {
-			return append([]Operator{operator}, ops...)
-		}
-	}
-	return nil
-}
-
 func IterOp(total int) func(func([]Operator) bool) {
 	return func(f func([]Operator) bool) {
 		ops := make([]Operator, total)
-		for i := range total {
-			cont := DistributeMuls(ops, i, func() bool { return f(ops) })
-			if !cont {
-				return
+		for expensiveOperations := range total + 1 {
+			for concatenations := range expensiveOperations + 1 {
+				if _continue := FillRecursively(ops, concatenations, expensiveOperations-concatenations, func() bool { return f(ops) }); !_continue {
+					return
+				}
 			}
 		}
 	}
 }
 
-func DistributeMuls(operators []Operator, multiplications int, yield func() bool) (cont bool) {
-	if len(operators) < multiplications {
+func FillRecursively(operators []Operator, concatenations, multiplications int, yield func() bool) bool {
+	if len(operators) < concatenations+multiplications {
 		return true
 	}
 	if len(operators) == 0 {
 		return yield()
 	}
-	for _, occupy := range []bool{false, true} {
-		if occupy {
-			operators[0] = Mul
-			cont = DistributeMuls(operators[1:], multiplications-1, yield)
-		} else {
-			operators[0] = Add
-			cont = DistributeMuls(operators[1:], multiplications, yield)
-		}
-		if !cont {
+
+	operators[0] = Add
+	if _continue := FillRecursively(operators[1:], concatenations, multiplications, yield); !_continue {
+		return false
+	}
+
+	if multiplications > 0 {
+		operators[0] = Multiply
+		if _continue := FillRecursively(operators[1:], concatenations, multiplications-1, yield); !_continue {
 			return false
 		}
 	}
+
+	if concatenations > 0 {
+		operators[0] = Concatenate
+		return FillRecursively(operators[1:], concatenations-1, multiplications, yield)
+	}
+
 	return true
 }
