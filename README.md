@@ -13,3 +13,7 @@ YouTube:
 | 4   | 08         | https://youtu.be/zwxo0tBB9RU |
 | 5   | 09         | https://youtu.be/Binf96BaDfo |
 | 5   | 10         | https://youtu.be/U1fURT-zBBk |
+| 6   | 11         | https://youtu.be/Ql_bpPzxRWs |
+| 6   | 12         | https://youtu.be/Vu25w-4Hef0 |
+| 7   | 13         | https://youtu.be/R-vAY_g7Jos |
+| 7   | 14         | https://youtu.be/bkE0kEgwbEM |
