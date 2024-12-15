@@ -1,6 +1,10 @@
 package main
 
-import "testing"
+import (
+	"fmt"
+	"os"
+	"testing"
+)
 
 func TestCountWords(t *testing.T) {
 	tests := []struct {
@@ -135,21 +139,17 @@ func TestCompleteXMas(t *testing.T) {
 }
 
 func TestCountXMas(t *testing.T) {
+	filename := "input_test.txt"
+	b, err := os.ReadFile(filename)
+	if err != nil {
+		panic(fmt.Sprintf("could not read file %s: %s\n", filename, err))
+	}
 	tests := []struct {
 		input  [][]byte
 		expect int
 	}{
 		{ByteSclices("X###\n#M#M\n##A#\n#S#S"), 1},
-		{ByteSclices(`MMMSXXMASM
-MSAMXMSMSA
-AMXSXMAAMM
-MSAMASMSMX
-XMASAMXAMM
-XXAMMXXAMA
-SMSMSASXSS
-SAXAMASAAA
-MAMMMXMMMM
-MXMXAXMASX`), 9},
+		{ByteSclices(string(b)), 9},
 	}
 
 	for _, test := range tests {

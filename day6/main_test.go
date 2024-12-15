@@ -2,19 +2,18 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"testing"
 )
 
-const input = `....#.....
-.........#
-..........
-..#.......
-.......#..
-..........
-.#..^.....
-........#.
-#.........
-......#...`
+var input = func() string {
+	filename := "input_test.txt"
+	b, err := os.ReadFile(filename)
+	if err != nil {
+		panic(fmt.Sprintf("could not read file %s: %s\n", filename, err))
+	}
+	return string(b)
+}()
 
 var planMap = [][]rune{
 	{'.', '.', '.', '.', '#', '.', '.', '.', '.', '.'},

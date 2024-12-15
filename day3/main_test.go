@@ -1,8 +1,19 @@
 package main
 
 import (
+	"fmt"
+	"os"
 	"testing"
 )
+
+var input = func() string {
+	filename := "input_test.txt"
+	b, err := os.ReadFile(filename)
+	if err != nil {
+		panic(fmt.Sprintf("could not read file %s: %s\n", filename, err))
+	}
+	return string(b)
+}()
 
 func TestFindMuls(t *testing.T) {
 	tests := []struct {
@@ -10,7 +21,7 @@ func TestFindMuls(t *testing.T) {
 		muls []Mul
 	}{
 		{"mul(1,2)", []Mul{{1, 2}}},
-		{"xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))", []Mul{{2, 4}, {5, 5}, {11, 8}, {8, 5}}},
+		{input, []Mul{{2, 4}, {5, 5}, {11, 8}, {8, 5}}},
 	}
 
 testsLoop:

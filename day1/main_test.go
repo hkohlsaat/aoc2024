@@ -1,8 +1,19 @@
 package main
 
 import (
+	"fmt"
+	"os"
 	"testing"
 )
+
+var input = func() string {
+	filename := "input_test.txt"
+	b, err := os.ReadFile(filename)
+	if err != nil {
+		panic(fmt.Sprintf("could not read file %s: %s\n", filename, err))
+	}
+	return string(b)
+}()
 
 func TestListDifference(t *testing.T) {
 	tests := []struct {
@@ -32,14 +43,7 @@ func TestSplitLists(t *testing.T) {
 		expect Input
 	}{
 		{"1   3", Input{[]int{1}, []int{3}}},
-		{`3   4
-4   3
-2   5
-1   3
-3   9
-3   3
-`, Input{[]int{3, 4, 2, 1, 3, 3}, []int{4, 3, 5, 3, 9, 3}},
-		},
+		{input, Input{[]int{3, 4, 2, 1, 3, 3}, []int{4, 3, 5, 3, 9, 3}}},
 	}
 
 	for _, test := range tests {
