@@ -17,3 +17,6 @@ YouTube:
 | 6   | 12         | https://youtu.be/Vu25w-4Hef0 |
 | 7   | 13         | https://youtu.be/R-vAY_g7Jos |
 | 7   | 14         | https://youtu.be/bkE0kEgwbEM |
+| 8   | 15 & 16    | https://youtu.be/rady0S8POb8 |
+| 9   | 17         | https://youtu.be/XmRiBpJfU48 |
+| 9   | 18         | https://youtu.be/n3cfveWsmRQ |
