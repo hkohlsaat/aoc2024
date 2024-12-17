@@ -1,8 +1,8 @@
 My solutions to Advent of Code 2024.
 
 YouTube: 
-| Day | Assignment | Link |
-|-----|------------|------|
+| Day | Assignment | Link                         |
+|-----|------------|------------------------------|
 | 1   | 01         | https://youtu.be/_8esggEGFu4 |
 | 1   | 02         | https://youtu.be/J2Ao7AtbBQc |
 | 2   | 03         | https://youtu.be/Q-me4IiejEo |
@@ -20,3 +20,5 @@ YouTube:
 | 8   | 15 & 16    | https://youtu.be/rady0S8POb8 |
 | 9   | 17         | https://youtu.be/XmRiBpJfU48 |
 | 9   | 18         | https://youtu.be/n3cfveWsmRQ |
+| 10  | 19         | https://youtu.be/N5plTn4HbiE |
+| 10  | 20         | https://youtu.be/TrbrcfkGrww |
